@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+<!-- Add additional CSS in static file -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+{% block content %}
+  <h1>Setlist Visualizer Home</h1>
+  <p>Welcome to Setvisualizer, a website that visualizes the frequency of how often songs are played at concerts</p>
+  <h2>MUSIC IS LIFE</h2>
+
+  <!--{% load static %}
+  <img src="{% static 'catalog/images/music.png' %}" alt="logo">-->
+
+
+{% endblock %}
