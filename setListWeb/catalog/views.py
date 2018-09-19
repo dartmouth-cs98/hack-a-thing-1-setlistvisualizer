@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from catalog.forms import SearchForm
+from setListWeb.visualizeSongsWeb import scrape
 
 # Create your views here.
 #from catalog.models import Book, Author, BookInstance, Genre
@@ -25,4 +28,31 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     # TODO: Add context
-    return render(request, 'index.html')
+
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+
+        if search_form.is_valid():
+            #TODO: something something here for HttpResponse
+            artist = search_form.cleaned_data['artist']
+            unique = search_form.cleaned_data['unique']
+            url_start = search_form.cleaned_data['url_start']
+            url_stop = search_form.cleaned_data['url_stop']
+
+            scrape(artist, unique, url_start, url_stop)
+
+            return HttpResponseRedirect('output')
+
+    else:
+        search_form = SearchForm()
+
+    context = {
+        'form': search_form,
+    }
+
+    return render(request, 'index.html', context)
+
+
+def output(request):
+
+    return render(request, 'output.html')
