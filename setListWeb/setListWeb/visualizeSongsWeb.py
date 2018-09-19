@@ -21,30 +21,31 @@ import matplotlib.ticker as mtick
 import numpy as np
 import random
 from collections import defaultdict
-from pathlib import Path # optional, only if you don't want to scrape everytime you mess around with graph
+import os
+from django.conf import settings
 
 # THINGS YOU MUST CHANGE
-ARTIST = "Radiohead"
-UNIQUE = "radiohead-bd6bd12.html"
-URL_TO_STOP_AT = "united-center-chicago-il-7bea6a40.html" # Note: get rid of HTTPS part
-URL_TO_START_AT = "html" # this url will be the first one to be scraped, if put in
+#ARTIST = "Radiohead"
+#UNIQUE = "radiohead-bd6bd12.html"
+#URL_TO_STOP_AT = "united-center-chicago-il-7bea6a40.html" # Note: get rid of HTTPS part
+#URL_TO_START_AT = "html" # this url will be the first one to be scraped, if put in
 
 # OPTIONAL THINGS TO CHANGE
 YEAR = "2018"
 SORT_ALBUM = False # toggle if you want to sort by album or not. if false, sorts by count
-FILE = ARTIST + "-Data" + "-" + YEAR +".xlsx" # filename
-TITLE = "Frequency of Songs during " + ARTIST + "'s Tour"
+#FILE = ARTIST + "-Data" + "-" + YEAR +".xlsx" # filename
+#TITLE = "Frequency of Songs during " + ARTIST + "'s Tour"
 SONGS_TO_IGNORE = ["I Wish I Knew How It Would Feel to Be Free", "Egyptian Fantasy"]
-MAX_PAGES = 100 # max to scrape, not even close to used if URL_TO_STOP set properly
+MAX_PAGES = 1 # max to scrape, not even close to used if URL_TO_STOP set properly
 FONT_SIZE_TICKS = 3
 FONT_Y = 5 # for labels
 OPTIONAL_TITLE_ADDITIONAL = ", North America " + YEAR
-TITLE = TITLE + OPTIONAL_TITLE_ADDITIONAL
+#TITLE = TITLE + OPTIONAL_TITLE_ADDITIONAL
 color_album_dict = {}
 
-def scrape():
-	UNIQUE_URL = "https://www.setlist.fm/setlists/" + UNIQUE + "?page="
-	SONG_URL = "https://www.setlist.fm/stats/songs/" + UNIQUE + "?song="  # notice difference: /stats/
+def scrape(artist, unique, startURL, stopURL):
+	UNIQUE_URL = "https://www.setlist.fm/setlists/" + unique + "?page="
+	SONG_URL = "https://www.setlist.fm/stats/songs/" + unique + "?song="  # notice difference: /stats/
 	visited = {} # key song, album is value
 	links = []
 	dm = []
@@ -53,21 +54,26 @@ def scrape():
 	break_bool = False
 	start = False
 	for i in range(MAX_PAGES):
+		print("SCRAPING SCRAPING")
 		if break_bool:
 			break
 		url = UNIQUE_URL + str(i + 1)
 		r = requests.get(url)
+		print(r.content)
 		soup = bs(r.content, "lxml")
 		for link in soup.find_all('a', class_='summary url'):
+
 			setlist = (link.get('href'))
 			completeurl = 'http://www.setlists.fm' + setlist[2:]
-			if URL_TO_START_AT in completeurl:
+			print("Getting url: " + completeurl) # print the output
+
+			if startURL in completeurl:
 				start = True
 			if start:
-				#print("Getting url: " + completeurl) # print the output
+				print("Getting url: " + completeurl) # print the output
 				links.append(completeurl)
 			# stop at this url
-			if URL_TO_STOP_AT in completeurl:
+			if stopURL in completeurl:
 				break_bool = True
 				break # stop at this setlist
 
@@ -116,7 +122,8 @@ def scrape():
 				print("skipping over this song because no setlist data populated yet")
 
 	df = pd.DataFrame(dm, columns=['Date', 'Track', 'Album'])
-	visualize_album(df)
+	print(df)
+	visualize_album(df, artist)
 
 def create_clean_df(df):
 	total_df = df.copy()
@@ -136,10 +143,10 @@ def create_clean_df(df):
 	albums = albums.set_index('Track')
 	albums = albums[~albums.index.duplicated(keep='first')]
 	unique_df = pd.merge(unique_df, albums, left_index=True, right_index=True)
-
+	print("runing pandas")
 	return (total, unique_df)
 
-def visualize_album(df):
+def visualize_album(df, artist):
 	(total, unique_df) = create_clean_df(df)
 	album_df = unique_df.copy()
 	color_album_dict = return_color_album_dict(album_df['Album'].unique().tolist())
@@ -160,8 +167,8 @@ def visualize_album(df):
 
 	format(ax, color_album_dict, total, unique_df)
 
-	plt.savefig("./Visual-" + ARTIST + ORDERCOUNT + YEAR + ".png", format='png', dpi=1200)
-	plt.show()
+	plt.savefig(os.path.join(settings.BASE_DIR, "catalog/static/images/graph.png"), format='png', dpi=175)
+	#plt.show()
 
 def format(ax, color_dict, total, df):
 	# The following two lines generate custom fake lines that will be used as legend entries:
@@ -176,7 +183,7 @@ def format(ax, color_dict, total, df):
 
 	ax.set_ylabel("Track (Count: " + str(len(df.index)) + ")")
 	plt.yticks(fontsize=FONT_Y)
-	plt.title(TITLE, fontsize=10)
+	plt.title("Data", fontsize=10)
 
 	for i in ax.patches:
 		ax.text(i.get_width()+.3, i.get_y()+.38, str(round((i.get_width()*total/100), 1)).replace(".0", ""), fontsize=FONT_SIZE_TICKS, color='dimgrey')
@@ -203,7 +210,3 @@ def return_color_album_dict(albums_list):
 		i += 1
 
 	return color_album_dict
-
-
-if __name__ == "__main__":
-	scrape()

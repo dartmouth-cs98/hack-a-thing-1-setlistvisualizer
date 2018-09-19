@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from catalog.forms import SearchForm
-
+from setListWeb.visualizeSongsWeb import scrape
 
 # Create your views here.
 #from catalog.models import Book, Author, BookInstance, Genre
@@ -34,6 +34,13 @@ def index(request):
 
         if search_form.is_valid():
             #TODO: something something here for HttpResponse
+            artist = search_form.cleaned_data['artist']
+            unique = search_form.cleaned_data['unique']
+            url_start = search_form.cleaned_data['url_start']
+            url_stop = search_form.cleaned_data['url_stop']
+
+            scrape(artist, unique, url_start, url_stop)
+
             return HttpResponseRedirect('output')
 
     else:
