@@ -10,8 +10,13 @@
   <p>Welcome to Setvisualizer, a website that visualizes the frequency of how often songs are played at concerts</p>
   <h2>MUSIC IS LIFE</h2>
 
+  
   <!--{% load static %}
   <img src="{% static 'catalog/images/music.png' %}" alt="logo">-->
-
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Submit">
+  </form>
 
 {% endblock %}

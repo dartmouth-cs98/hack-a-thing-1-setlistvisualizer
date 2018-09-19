@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from catalog.forms import SearchForm
+
 
 # Create your views here.
 #from catalog.models import Book, Author, BookInstance, Genre
@@ -25,4 +28,24 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     # TODO: Add context
-    return render(request, 'index.html')
+
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+
+        if search_form.is_valid():
+            #TODO: something something here for HttpResponse
+            return HttpResponseRedirect('output')
+
+    else:
+        search_form = SearchForm()
+
+    context = {
+        'form': search_form,
+    }
+
+    return render(request, 'index.html', context)
+
+
+def output(request):
+
+    return render(request, 'output.html')
