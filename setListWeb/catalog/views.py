@@ -34,7 +34,7 @@ def index(request):
 
         if search_form.is_valid():
             #TODO: something something here for HttpResponse
-            artist = search_form.cleaned_data['artist']
+            artist = ""
             unique = search_form.cleaned_data['unique_artist_url']
             url_start = search_form.cleaned_data['url_start']
             url_stop = search_form.cleaned_data['url_stop']

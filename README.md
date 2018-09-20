@@ -8,13 +8,13 @@
 
 ## What we attempted to build
 
-We both had zero experience with Python web frameworks. Over the summer, I (Alex) wrote a simple, crummy Python script that creates a graph of the frequency of songs played at concerts. We thought it'd be fun to try and hook that script up to the Internet, so anyone can use it. (Please see citations below for script.) 
+We both had zero experience with Python web frameworks. Over the summer, I (Alex) wrote a simple, crummy Python script that creates a graph of the frequency of songs played at concerts. We thought it'd be fun to try and hook that script up to the Internet, so anyone can use it. (Please see citations below for script.)
 
-While working at our respective internships this past summer, we both had heard a lot about Django/Flask and their popularity, and we decided that this would be a great opportunity to try out these web frameworks. Having both taken CS52, we were intrigued to try out a new framework and compare it to what we had learned in that class, especially one that prides itself on being very efficient and lightweight while still maintaining a lot of powerful features. 
+While working at our respective internships this past summer, we both had heard a lot about Django/Flask and their popularity, and we decided that this would be a great opportunity to try out these web frameworks. Having both taken CS52, we were intrigued to try out a new framework and compare it to what we had learned in that class, especially one that prides itself on being very efficient and lightweight while still maintaining a lot of powerful features.
 
-Furthermore, we wanted to see how to integrate some sort of dynamic image generation into a web site - most of our previous projects used static image resources which were always available, but we wanted to see how dynamic image creation/display might be implemented and whether it would be a complex or straight forward process. 
+Furthermore, we wanted to see how to integrate some sort of dynamic image generation into a web site - most of our previous projects used static image resources which were always available, but we wanted to see how dynamic image creation/display might be implemented and whether it would be a complex or straight forward process.
 
-Again, we knew nothing about Django/Flask. In fact, we knew so little about Django we thought it was a front-end only framework at first and Flask was back-end only... 
+Again, we knew nothing about Django/Flask. In fact, we knew so little about Django we thought it was a front-end only framework at first and Flask was back-end only...
 
 
 ## Who did what
@@ -29,7 +29,7 @@ Again, we knew nothing about Django/Flask. In fact, we knew so little about Djan
 
 Django is really powerful and makes it very easy to create web pages. Flask can be thought of as "mini" Django, but the two are different and are not used together (our initial understanding was that they each handled front vs backend frameworks respectively). You can either have Flask or Django, not both.
 
-We also learned a lot about Django and how to set up the basic framework - how model/views/templates/urls/etc fit together and worked together to display and control a web page. Furthermore, we learned how to pass information between pages and into scripts through requests, particularly how to integrate forms to allow for user inputs to be used. Finally, we learned a little bit about how to control page-flow and logic in an efficient manner, and how to leverage logic regarding different request-types to dictate what our view rendered. Dynamic images were not as difficult as we thought to include, although our current implementation may not be the most efficient or scalable, and definitely could be improved upon with greater knowledge of the web framework. 
+We also learned a lot about Django and how to set up the basic framework - how model/views/templates/urls/etc fit together and worked together to display and control a web page. Furthermore, we learned how to pass information between pages and into scripts through requests, particularly how to integrate forms to allow for user inputs to be used. Finally, we learned a little bit about how to control page-flow and logic in an efficient manner, and how to leverage logic regarding different request-types to dictate what our view rendered. Dynamic images were not as difficult as we thought to include, although our current implementation may not be the most efficient or scalable, and definitely could be improved upon with greater knowledge of the web framework.
 
 We also made a number of basic mistakes that we learned from. For example, not making dynamic changes to templates, and not putting dynamic images in the `static` folder. Furthermore, importing the python script and calling it within our framework was much easier/cleaner than rewriting it within the script.
 
@@ -63,7 +63,7 @@ Then go to: `http://127.0.0.1:8000/`
 
 ### Example Data Fields:
 
-Arist Unique: 
+Arist Unique:
 
 `radiohead-bd6bd12.html`
 
@@ -71,7 +71,7 @@ Start URL:
 
 `wells-fargo-center-philadelphia-pa-13eb054d.html`
 
-End URL: 
+End URL:
 
 `td-garden-boston-ma-73eb2ad9.html`
 
@@ -80,15 +80,15 @@ End URL:
 
 ### Arist Unique
 
-This is the unique URL that setlist.fm uses for that artist. For example, if you were to Google search: "Dave Matthews Band setlist fm", you'd probably land here.
+This is the unique URL that setlist.fm uses for that artist. For example, if you were to Google search: "Travis Scott setlist fm", you'd probably land here.
 
 ```
-https://www.setlist.fm/setlists/dave-matthews-band-43d6e713.html
+https://www.setlist.fm/setlists/travis-scott-6bdeaa7e.html
 ```
 **This is what you want:**
 
 ```
-dave-matthews-band-43d6e713.html
+travis-scott-6bdeaa7e.html
 ```
 
 That's your Artist Unique.
@@ -98,7 +98,7 @@ That's your Artist Unique.
 What setlist do you want to start at? Say I have a particular timeframe in mind. Then, I would go to the first setlistfm URL I want. Let's start with Dave Matthew's concert at the Gorge:
 
 ```
-dave-matthews-band/2018/the-gorge-amphitheatre-george-wa-7be87614.html
+oakland-coliseum-oakland-ca-5be9efa0.html
 ```
 
 Just take the last half of it. Exclude https.
@@ -116,7 +116,7 @@ Or provide a URL where the tour ended, or any concert you want to stop at.
 For example:
 
 ```
-dave-matthews-band/2018/les-schwab-amphitheater-bend-or-7be82af4.html
+parque-das-nacoes-lisbon-portugal-3bebec6c.html
 ```
 
 ### Citiations
@@ -129,12 +129,12 @@ dave-matthews-band/2018/les-schwab-amphitheater-bend-or-7be82af4.html
 ](https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/
 )
 
-- Script originally written by Alex Danilowicz as a personal project. Script ran locally. This version is heavily modified and optimized for web from original version. 
+- Script originally written by Alex Danilowicz as a personal project. Script ran locally. This version is heavily modified and optimized for web from original version.
 
-- Author of original setlistfm scraping (where I got the idea): ryanleewatts. 
+- Author of original setlistfm scraping (where I got the idea): ryanleewatts.
 
-- Github: https://github.com/ryanleewatts. 
+- Github: https://github.com/ryanleewatts.
 
-- Original script: https://github.com/ryanleewatts/coding-project/blob/master/scraper/SetlistScript.py 
+- Original script: https://github.com/ryanleewatts/coding-project/blob/master/scraper/SetlistScript.py
 
 - Danilowicz original author of all pandas/matplotlib code, as well as modification of original BeautifulSoup code
