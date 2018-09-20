@@ -2,6 +2,10 @@
 
 ## Alexander Danilowicz, Weiling Huang
 
+![Example](ExampleOutput.png)
+
+*Dynamically created over the Internet thanks to  Django...*
+
 ## What we attempted to build
 
 We both had zero experience with Python web frameworks. Over the summer, I (Alex) wrote a simple, crummy Python script that creates a graph of the frequency of songs played at concerts. We thought it'd be fun to try and hook that script up to the Internet, so anyone can use it. (Please see citations below for script.)
@@ -104,3 +108,23 @@ For example:
 ```
 dave-matthews-band/2018/les-schwab-amphitheater-bend-or-7be82af4.html
 ```
+
+### Citiations
+
+- Django tutorial 1: [https://docs.djangoproject.com/en/2.1/intro/tutorial01/](https://docs.djangoproject.com/en/2.1/intro/tutorial01/)
+
+- Django tutorial 2: [https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/skeleton_website)] (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/skeleton_website)
+
+- Python Anywhere Blog Post: [https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/
+](https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/
+)
+
+- Script originally written by Alex Danilowicz as a personal project. Script ran locally. This version is heavily modified and optimized for web from original version. 
+
+- Author of original setlistfm scraping (where I got the idea): ryanleewatts. 
+
+- Github: https://github.com/ryanleewatts. 
+
+- Original script: https://github.com/ryanleewatts/coding-project/blob/master/scraper/SetlistScript.py 
+
+- Danilowicz original author of all pandas/matplotlib code, as well as modification of original BeautifulSoup code

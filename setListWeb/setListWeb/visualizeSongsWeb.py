@@ -10,7 +10,7 @@
 # 	Github: https://github.com/ryanleewatts
 # 	Original script: https://github.com/ryanleewatts/coding-project/blob/master/scraper/SetlistScript.py
 #	Danilowicz original author of all pandas/matplotlib code,
-#	as well as modification of original BeautifulSoup coe
+#	as well as modification of original BeautifulSoup code
 
 from bs4 import BeautifulSoup as bs
 import requests
